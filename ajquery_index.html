@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Assignment - AJAX Students</title>
+    <style>
+        .namecs {
+            margin-left: 30px;
+            margin-bottom: 2px;
+            margin-top: 2px;
+        }
+
+        .surnamecs {
+            margin-left: 12px;
+        }
+        
+        .checkercs {
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        .gradecs {
+            margin-left: 3px;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <label>Index num:</label>
+        <input id="indexnum">
+        <br>
+        <label>Avg grade:</label>
+        <input id="grade" class="gradecs">
+        <br>
+        <label>Name:</label>
+        <input id="name" class="namecs">
+        <br>
+        <label>Surname:</label>
+        <input id="surname" class="surnamecs">
+        <br>
+        <button onclick="checkForName()" class="checkercs">Get</button>
+        <button onclick="addNew()" class="checkercs">Post</button>
+        <p id="response"></p>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        function checkForName() {
+            var index = $('#indexnum').val();
+            $.get("http://127.0.0.1:8080/?index=" + index, function(data) {
+                $("#response").text(data);
+            }).fail(function(err) {
+                $("#response").text(err.responseText);
+            });
+        };
+    </script>
+
+
+    <script>
+        function addNew() {
+            var index = $('#indexnum').val();
+            var grade = $('#grade').val();
+            var name = $("#name").val();
+            var surname = $("#surname").val();
+            $.post("http://127.0.0.1:8080/?index=" + index + "&gpa=" + grade + "&first_name=" + name + "&last_name=" + surname, function(data) {
+                console.log(data);
+            });
+        };
+    </script>
+
+</body>
+
+</html>
+
